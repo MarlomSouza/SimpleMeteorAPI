@@ -35,7 +35,7 @@ Meteor.startup(() => {
   WebApp.connectHandlers.use("/ok", (req, res, next) => {
     if (req.method === "GET") {
       res.writeHead(200, { "Content-Type": "text/plain" })
-      res.end("ok")
+      res.end("okay")
     } else {
       res.writeHead(405)
       res.end()
