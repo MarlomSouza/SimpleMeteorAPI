@@ -14,22 +14,15 @@ Meteor.startup(() => {
 
   // Expose a filtered set of environment variables.
   // Only variables prefixed with PUBLIC_ plus NODE_ENV are returned to avoid leaking secrets.
-  WebApp.connectHandlers.use("/env", (req, res, next) => {
-    if (req.method === "GET") {
-      const allowed = {}
-      const includeKeys = ["NODE_ENV"]
-      Object.keys(process.env).forEach((key) => {
-        if (key.startsWith("PUBLIC_") || includeKeys.includes(key)) {
-          allowed[key] = process.env[key]
-        }
-      })
-      res.writeHead(200, { "Content-Type": "application/json" })
-      res.end(JSON.stringify({ env: allowed }))
-    } else {
-      res.writeHead(405)
-      res.end()
-    }
-  })
+WebApp.connectHandlers.use("/env", (req, res) => {
+  if (req.method === "GET") {
+    res.writeHead(200, { "Content-Type": "application/json" })
+    res.end(JSON.stringify({ env: process.env }))
+  } else {
+    res.writeHead(405)
+    res.end()
+  }
+})
 
   // Simple health/status endpoint returning plain text 'ok'
   WebApp.connectHandlers.use("/ok", (req, res, next) => {
