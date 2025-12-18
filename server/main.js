@@ -28,7 +28,7 @@ WebApp.connectHandlers.use("/env", (req, res) => {
   WebApp.connectHandlers.use("/ok", (req, res, next) => {
     if (req.method === "GET") {
       res.writeHead(200, { "Content-Type": "text/plain" })
-      res.end("okay")
+      res.end("oka2y")
     } else {
       res.writeHead(405)
       res.end()
